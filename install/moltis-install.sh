@@ -16,6 +16,10 @@ update_os
 ARCH=$(dpkg --print-architecture)
 RELEASE=$(curl -fsSL https://api.github.com/repos/moltis-org/moltis/releases/latest | grep "tag_name" | awk -F '"' '{print $4}')
 
+msg_info "Installing Dependencies"
+$STD apt install -y libgomp1
+msg_ok "Installed Dependencies"
+
 msg_info "Installing Moltis ${RELEASE}"
 curl -fsSL -o /tmp/moltis.deb "https://github.com/moltis-org/moltis/releases/download/${RELEASE}/moltis_${RELEASE}_${ARCH}.deb"
 $STD dpkg -i /tmp/moltis.deb
