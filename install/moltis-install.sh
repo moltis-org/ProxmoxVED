@@ -26,17 +26,10 @@ $STD dpkg -i /tmp/moltis.deb
 rm -f /tmp/moltis.deb
 msg_ok "Installed Moltis ${RELEASE}"
 
-msg_info "Configuring Moltis"
-useradd -r -s /usr/sbin/nologin -d /var/lib/moltis moltis
-mkdir -p /var/lib/moltis /etc/moltis
-chown moltis:moltis /var/lib/moltis /etc/moltis
-msg_ok "Configured Moltis"
-
 read -r -p "${TAB3}Would you like to install Docker for sandbox support? <y/N> " prompt
 if [[ ${prompt,,} =~ ^(y|yes)$ ]]; then
   msg_info "Installing Docker"
   $STD sh <(curl -fsSL https://get.docker.com)
-  $STD usermod -aG docker moltis
   msg_ok "Installed Docker"
 fi
 
@@ -50,19 +43,9 @@ Documentation=https://docs.moltis.org
 
 [Service]
 Type=simple
-User=moltis
-Group=moltis
 ExecStart=/usr/bin/moltis --bind 0.0.0.0 --port 13131
 Restart=on-failure
 RestartSec=5
-Environment=MOLTIS_DATA_DIR=/var/lib/moltis
-Environment=MOLTIS_CONFIG_DIR=/etc/moltis
-NoNewPrivileges=true
-ProtectSystem=strict
-ProtectHome=true
-ReadWritePaths=/var/lib/moltis /etc/moltis
-PrivateTmp=true
-AmbientCapabilities=CAP_NET_BIND_SERVICE
 
 [Install]
 WantedBy=multi-user.target
