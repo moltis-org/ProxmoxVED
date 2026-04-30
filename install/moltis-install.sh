@@ -52,7 +52,7 @@ Documentation=https://docs.moltis.org
 Type=simple
 User=moltis
 Group=moltis
-ExecStart=/usr/bin/moltis service --bind 0.0.0.0
+ExecStart=/usr/bin/moltis --bind 0.0.0.0
 Restart=on-failure
 RestartSec=5
 Environment=MOLTIS_DATA_DIR=/var/lib/moltis
