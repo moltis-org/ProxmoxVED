@@ -64,3 +64,14 @@ msg_ok "Completed successfully!\n"
 echo -e "${CREATING}${GN}${APP} setup has been successfully initialized!${CL}"
 echo -e "${INFO}${YW} Access it using the following URL:${CL}"
 echo -e "${TAB}${GATEWAY}${BGN}https://${IP}:13131${CL}"
+
+SETUP_CODE=""
+for i in $(seq 1 10); do
+  SETUP_CODE=$(pct exec "$CTID" -- journalctl -u moltis --no-pager 2>/dev/null | grep -oP 'setup code: \K\S+' | tail -1)
+  [[ -n "$SETUP_CODE" ]] && break
+  sleep 2
+done
+if [[ -n "$SETUP_CODE" ]]; then
+  echo -e "${INFO}${YW} Setup code: ${BGN}${SETUP_CODE}${CL}"
+  echo -e "${INFO}${YW} Enter this code in the web UI to set your password${CL}"
+fi
