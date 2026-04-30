@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-source <(curl -fsSL https://raw.githubusercontent.com/moltis-org/ProxmoxVED/feat/moltis/misc/build.func)
+COMMUNITY_SCRIPTS_URL="https://raw.githubusercontent.com/moltis-org/ProxmoxVED/feat/moltis"
+source <(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVED/main/misc/build.func)
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: Fabien Penso (penso)
 # License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
