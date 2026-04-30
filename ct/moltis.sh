@@ -75,3 +75,12 @@ if [[ -n "$SETUP_CODE" ]]; then
   echo -e "${INFO}${YW} Setup code: ${BGN}${SETUP_CODE}${CL}"
   echo -e "${INFO}${YW} Enter this code in the web UI to set your password${CL}"
 fi
+
+CA_CERT=$(pct exec "$CTID" -- cat /etc/moltis/certs/ca.pem 2>/dev/null)
+if [[ -n "$CA_CERT" ]]; then
+  echo ""
+  echo -e "${INFO}${YW} To avoid browser warnings, install the CA certificate:${CL}"
+  echo -e "${TAB}${GATEWAY}${BGN}http://${IP}:13132/certs/ca.pem${CL}"
+  echo -e "${INFO}${YW} Or copy from the container:${CL}"
+  echo -e "${TAB}pct exec ${CTID} -- cat /etc/moltis/certs/ca.pem"
+fi
